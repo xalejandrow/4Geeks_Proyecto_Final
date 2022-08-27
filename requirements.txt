@@ -28,3 +28,4 @@ tzlocal==4.2
 validators==0.20.0
 watchdog==2.1.9
 widgetsnbextension==3.6.1
+sklearn
