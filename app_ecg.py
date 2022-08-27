@@ -9,17 +9,20 @@ import pickle
 
 file = st.file_uploader("Please choose a file")
 
-def calcPrediction(df):
+def calcPrediction(data):
     #model = pickle.load('model.pkl')
     model = pickle.load(open('model.pkl','rb'))
+    df = data.iloc[:,:-1]
     result = model.predict(df)
+    st.text(result)
     test_result = result.tolist()[0]
-    print(test_result)
+    st.text(test_result)
 
 if file is not None:
     df= pd.read_csv(file, header=None)
     st.dataframe(df)
     st.title('ECG Graph')
     st.line_chart(df.iloc[0,:186])
-    calcPrediction(df[0,0:186])
+    #calcPrediction(df[0,0:186])
+    calcPrediction(df)
     #calcPrediction(df[:,-1])
