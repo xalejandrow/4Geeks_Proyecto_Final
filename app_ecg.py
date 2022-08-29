@@ -1,5 +1,5 @@
 #importing required libraries
-
+import os
 import streamlit as st
 import pandas as pd
 from io import StringIO 
@@ -7,6 +7,17 @@ import pickle
 
 #adding a file uploader
 
+# Upload Model
+file_model = st.file_uploader("Please choose a Model file if not uploaded yet")
+# check if the file has been uploaded
+if file_model:
+    # strip the leading path from the file name
+    fn = os.path.basename(file_model)
+     
+   # open read and write the file into the server
+    open(fn, 'wb').write(fileitem.file.read())
+
+# Upload CSV
 file = st.file_uploader("Please choose a file")
 
 def calcPrediction(data):
