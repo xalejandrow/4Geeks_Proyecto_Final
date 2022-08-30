@@ -1,35 +1,33 @@
 #importing required libraries
+import os
 import streamlit as st
 import pandas as pd
 from io import StringIO 
 import pickle
 
-
-st.title('Proyecto Final Machine Learning')
-
-st.header('Descripción del ECG')
-#st.image('img/PQRST-1.jpg')
-#st.caption('fuente: https://www.girodmedical.es/blog_es/como-interpretar-un-electrocardiograma/')
-st.image('img/UTII-2B-img-Elementos-del-electro.jpg')
-st.caption('fuente: https://fisiologia.facmed.unam.mx/index.php/taller-de-interpretacion-del-electrocardiograma/')
 #adding a file uploader
 
-st.header('Clases detectadas')
-st.image('img/Graficas_de_Clases.png')
-
-#imprimo tabla de clases
-df_clases = [{'Clase 1':'Normal'},{'Clase 2':'Normal'}]
-#df_clases = []
-st.table(df_clases)
+# Upload Model
+#file_model = st.file_uploader("Please choose a Model file if not uploaded yet")
+# check if the file has been uploaded
+#if file_model:
+    # strip the leading path from the file name
+    #fn = os.path.basename(file_model)
+     
+   # open read and write the file into the server
+   # open(fn, 'wb').write(fileitem.file.read())
 
 # Upload CSV
-file = st.file_uploader("Seleccione un archivo para procesar")
+file = st.file_uploader("Please choose a file")
 
 def calcPrediction(data):
+    #model = pickle.load('model.pkl')
     model = pickle.load(open('model.pkl','rb'))
     df = data.iloc[:,:-1]
     result = model.predict(df)
+    #st.text(result)
     test_result = result.tolist()[0]
+    #st.text(test_result)
     return test_result
 
 pred = None
@@ -38,7 +36,9 @@ if file is not None:
     st.dataframe(df)
     st.title('ECG Graph')
     st.line_chart(df.iloc[0,:186])
+    #calcPrediction(df[0,0:186])
     pred = calcPrediction(df)
+    #calcPrediction(df[:,-1])
 
 
 tabla_switch = {
