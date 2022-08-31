@@ -18,7 +18,10 @@ st.header('Clases detectadas')
 st.image('img/Graficas_de_Clases.png')
 
 #imprimo tabla de clases
-df_clases = [{'Clase 1':'Normal'},{'Clase 2':'Normal'}]
+#df_clases['Clase'] = {0,1,2,3,4}
+clases = {'Clase':[0,1,2,3,4],'Name':['Normal','Supraventricular','Ventricular','Fusion','Unknown']}
+df_clases = pd.DataFrame(clases)
+df_clases.reset_index()
 #df_clases = []
 st.table(df_clases)
 
